@@ -1,0 +1,8 @@
+[phases.setup]
+nixPkgs = ["python311", "wkhtmltopdf"]
+
+[phases.install]
+cmds = ["pip install --no-cache-dir python-telegram-bot==21.3 openpyxl"]
+
+[start]
+cmd = "python highstreet_bot.py"
