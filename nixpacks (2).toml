@@ -1,0 +1,8 @@
+[phases.setup]
+nixPkgs = ["python3", "wkhtmltopdf"]
+
+[phases.install]
+cmds = ["pip install openpyxl"]
+
+[start]
+cmd = "python3 highstreet_bot.py"
