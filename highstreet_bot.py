@@ -63,7 +63,7 @@ def send_doc(chat_id, path, filename, caption):
         f'Content-Disposition: form-data; name="caption"\r\n\r\n{caption}\r\n'
         f"--{boundary}\r\n"
         f'Content-Disposition: form-data; name="document"; filename="{filename}"\r\n'
-        f"Content-Type: application/pdf\r\n\r\n"
+        f"Content-Type: text/html\r\n\r\n"
     ).encode() + file_data + f"\r\n--{boundary}--\r\n".encode()
     req = urllib.request.Request(url, body,
         {'Content-Type': f'multipart/form-data; boundary={boundary}'})
@@ -162,11 +162,6 @@ def generate_pdf(unit, tenant, agent_key):
     pdf_path = f"/tmp/offer_{unit['unit'].replace('-','_')}_{tenant.replace(' ','_')}.pdf"
     with open(html_path, 'w') as f:
         f.write(html)
-    # Try wkhtmltopdf, fall back to HTML
-    result = os.system(f'wkhtmltopdf --page-size A4 --margin-top 0 --margin-bottom 0 --margin-left 0 --margin-right 0 "{html_path}" "{pdf_path}" 2>/dev/null')
-    if os.path.exists(pdf_path) and os.path.getsize(pdf_path) > 1000:
-        return pdf_path
-    # Return HTML as fallback
     return html_path
 
 import re as _re
@@ -264,8 +259,7 @@ def handle_callback(cb):
         edit(chat_id, msg_id, "⏳ Generating PDF...")
         pdf_path = generate_pdf(p['unit'], p['tenant'], p['agent_key'])
         if pdf_path:
-            ext = "pdf" if pdf_path.endswith(".pdf") else "html"
-    filename = f"HS-{p['unit']['unit']}-{p['tenant'].replace(' ','_')}.{ext}"
+            filename = f"HS-{p['unit']['unit']}-{p['tenant'].replace(' ','_')}.html"
             send_doc(p['chat_id'], pdf_path, filename, f"✅ Offer Approved: {p['unit']['unit']} — {p['tenant']}")
             edit(chat_id, msg_id, f"✅ PDF sent for {p['unit']['unit']} — {p['tenant']}")
         else:
