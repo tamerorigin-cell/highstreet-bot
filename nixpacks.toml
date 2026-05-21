@@ -1,5 +1,0 @@
-[phases.install]
-cmds = ["pip install --no-cache-dir python-telegram-bot openpyxl"]
-
-[start]
-cmd = "python3 highstreet_bot.py"
