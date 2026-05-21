@@ -1,5 +1,5 @@
 [phases.setup]
-nixPkgs = ["python3", "wkhtmltopdf"]
+nixPkgs = ["python3", "wkhtmltopdf", "libfontconfig", "freetype"]
 
 [phases.install]
 cmds = ["pip install openpyxl"]
