@@ -12,12 +12,14 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
 log = logging.getLogger(__name__)
 
 AGENTS = {
-    "tamer":   {"name": "Tamer Shalaby",  "phone": "+201005394515",  "email": "tamer.origin@gmail.com"},
-    "ahmed":   {"name": "Ahmed Elhakim",  "phone": "+201221414145",  "email": "aelhakim@virgo-eg.com"},
-    "azmy":    {"name": "Azmy Mohamed",   "phone": "01050405780",    "email": "azmy932@gmail.com"},
-    "ehab":    {"name": "Ehab Mustafa",   "phone": "01116064830",    "email": "Elbakhshwangyehab@gmail.com"},
-    "mahmoud": {"name": "Mahmoud Shaker", "phone": "+201007000933",  "email": "mshaker@virgo-eg.com"},
-    "noor":    {"name": "Noor Ilani",     "phone": "+32489647992",   "email": "Noor.ilani@outlook.com"},
+    "tamer":   {"name": "Tamer Shalaby",              "phone": "+201005394515",  "email": "tamer.origin@gmail.com"},
+    "ahmed":   {"name": "Ahmed Elhakim",              "phone": "+201221414145",  "email": "aelhakim@virgo-eg.com"},
+    "azmy":    {"name": "Azmy Mohamed",               "phone": "01050405780",    "email": "azmy932@gmail.com"},
+    "ehab":    {"name": "Ehab Mustafa",               "phone": "01116064830",    "email": "Elbakhshwangyehab@gmail.com"},
+    "mahmoud": {"name": "Mahmoud Shaker",             "phone": "+201007000933",  "email": "mshaker@virgo-eg.com"},
+    "noor":    {"name": "Noor Ilani",                 "phone": "+32489647992",   "email": "Noor.ilani@outlook.com"},
+    "tarek":   {"name": "Tarek Naji",                 "phone": "01272756051",    "email": "Tarek.naji.sy@gmail.com"},
+    "amir":    {"name": "Amir Mostafa Elbakhshawangy","phone": "01118339095",    "email": "amirstyle5@yahoo.com"},
 }
 
 # In-memory session store
