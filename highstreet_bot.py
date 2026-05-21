@@ -162,8 +162,12 @@ def generate_pdf(unit, tenant, agent_key):
     pdf_path = f"/tmp/offer_{unit['unit'].replace('-','_')}_{tenant.replace(' ','_')}.pdf"
     with open(html_path, 'w') as f:
         f.write(html)
-    os.system(f'wkhtmltopdf --page-size A4 --margin-top 0 --margin-bottom 0 --margin-left 0 --margin-right 0 "{html_path}" "{pdf_path}" 2>/dev/null')
-    return pdf_path if os.path.exists(pdf_path) else None
+    # Try wkhtmltopdf, fall back to HTML
+    result = os.system(f'wkhtmltopdf --page-size A4 --margin-top 0 --margin-bottom 0 --margin-left 0 --margin-right 0 "{html_path}" "{pdf_path}" 2>/dev/null')
+    if os.path.exists(pdf_path) and os.path.getsize(pdf_path) > 1000:
+        return pdf_path
+    # Return HTML as fallback
+    return html_path
 
 import re as _re
 def parse_unit(text):
@@ -260,7 +264,8 @@ def handle_callback(cb):
         edit(chat_id, msg_id, "⏳ Generating PDF...")
         pdf_path = generate_pdf(p['unit'], p['tenant'], p['agent_key'])
         if pdf_path:
-            filename = f"HS-{p['unit']['unit']}-{p['tenant'].replace(' ','_')}.pdf"
+            ext = "pdf" if pdf_path.endswith(".pdf") else "html"
+    filename = f"HS-{p['unit']['unit']}-{p['tenant'].replace(' ','_')}.{ext}"
             send_doc(p['chat_id'], pdf_path, filename, f"✅ Offer Approved: {p['unit']['unit']} — {p['tenant']}")
             edit(chat_id, msg_id, f"✅ PDF sent for {p['unit']['unit']} — {p['tenant']}")
         else:
